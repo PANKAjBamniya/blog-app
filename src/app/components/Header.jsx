@@ -10,6 +10,12 @@ import { useAuthStore } from "../store/authStore";
 const Header = () => {
   const { user } = useAuthStore();
 
+  const { logout } = useAuthStore();
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <header className="shadow">
       <div className="container mx-auto py-4 flex justify-between items-center">
@@ -23,7 +29,10 @@ const Header = () => {
           {user ? (
             <>
               {/* Logout Button */}
-              <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 transition">
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 transition"
+              >
                 LogOut
               </button>
 
