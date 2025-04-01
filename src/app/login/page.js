@@ -1,22 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useAuthStore } from "../store/authStore";
 
 const Login = () => {
+  const { login } = useAuthStore();
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
-    setForm({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+    await login(formData);
   };
 
   return (
@@ -40,6 +40,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              value={formData.email}
               className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="example@email.com"
               onChange={handleChange}
@@ -54,6 +55,7 @@ const Login = () => {
             <input
               type="password"
               name="password"
+              value={formData.password}
               className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="********"
               onChange={handleChange}

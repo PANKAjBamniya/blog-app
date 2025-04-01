@@ -10,25 +10,6 @@ import { useAuthStore } from "../store/authStore";
 const Header = () => {
   const { user } = useAuthStore();
 
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-
-    localStorage.removeItem("token");
-
-    setIsAuthenticated(false);
-
-    window.location.href = "/";
-  };
-
   return (
     <header className="shadow">
       <div className="container mx-auto py-4 flex justify-between items-center">
@@ -42,10 +23,7 @@ const Header = () => {
           {user ? (
             <>
               {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 transition"
-              >
+              <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 transition">
                 LogOut
               </button>
 

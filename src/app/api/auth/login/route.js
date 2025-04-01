@@ -1,7 +1,7 @@
 import UserModel from "../../../../../lib/model/userModel";
 import { connectDB } from "../../../../../lib/config/db";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // JWT Secret Key from .env file

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -11,16 +12,18 @@ const Hero = () => {
         practices. Subscribe now and never miss an update!
       </p>
       <form className="flex flex-col sm:flex-row justify-center gap-3">
-        <input
-          type="email"
-          placeholder="Enter your Email"
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
-        />
-        <button
-          type="submit"
-          className="bg-teal-900 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition"
-        >
-          Subscribe
+        <button className="relative overflow-hidden border-2 bg-teal-700 border-teal-900 text-white px-6 py-2 rounded-lg transition-all duration-300 group">
+          <span className="absolute inset-0 w-0 bg-teal-900 transition-all duration-300 group-hover:w-full right-0"></span>
+          <span className="relative z-10 text-white group-hover:text-white">
+            Create Blog
+          </span>
+        </button>
+
+        <button className="relative overflow-hidden border-2 border-black text-black px-6 py-2 rounded-lg transition-all duration-300 group">
+          <span className="absolute inset-0 w-0 bg-black transition-all duration-300 group-hover:w-full"></span>
+          <span className="relative z-10 text-black group-hover:text-white">
+            My Blog
+          </span>
         </button>
       </form>
     </div>

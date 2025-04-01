@@ -1,8 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAuthStore } from "../store/authStore";
+// import { useRouter } from "next/router";
 
-const Register = () => {
+const RegisterForm = () => {
+  const { register, user } = useAuthStore();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,9 +18,9 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+    await register(formData);
   };
 
   return (
@@ -40,6 +44,7 @@ const Register = () => {
             <input
               type="text"
               name="name"
+              value={formData.name}
               className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="John Doe"
               onChange={handleChange}
@@ -54,6 +59,7 @@ const Register = () => {
             <input
               type="email"
               name="email"
+              value={formData.email}
               className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="example@email.com"
               onChange={handleChange}
@@ -68,6 +74,7 @@ const Register = () => {
             <input
               type="password"
               name="password"
+              value={formData.password}
               className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="********"
               onChange={handleChange}
@@ -82,6 +89,7 @@ const Register = () => {
             <input
               type="password"
               name="confirmPassword"
+              value={formData.confirmPassword}
               className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="********"
               onChange={handleChange}
@@ -108,4 +116,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterForm;
