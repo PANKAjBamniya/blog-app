@@ -1,10 +1,8 @@
 import React from "react";
 
 const Hero = () => {
-    
-
   return (
-    <div className="max-w-2xl mx-auto text-center p-6 rounded-lg pb-20">
+    <div className="max-w-2xl mx-auto text-center p-6 rounded-lg md:py-20">
       <h1 className="text-4xl font-bold text-gray-800 mb-3">
         Stay Updated with Our Latest Blogs
       </h1>
