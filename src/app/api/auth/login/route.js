@@ -2,6 +2,10 @@ import UserModel from "../../../../../lib/model/userModel";
 import { connectDB } from "../../../../../lib/config/db";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+// JWT Secret Key from .env file
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(request) {
   try {
@@ -23,7 +27,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Compare password with the stored hash
+    //  Compare password with the stored hash
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return NextResponse.json(
@@ -32,12 +36,18 @@ export async function POST(request) {
       );
     }
 
-    //  User authenticated successfully
+    // User authenticated successfully
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user._id, name: user.name, email: user.email },
+      JWT_SECRET,
+      { expiresIn: "1h" } // Token expires in 1 hour
+    );
+
     return NextResponse.json(
       {
         message: "Login successful",
-        user: { name: user.name, email: user.email },
-        // Here you can send a JWT if you're implementing token-based auth
+        token,
       },
       { status: 200 }
     );

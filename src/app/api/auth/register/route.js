@@ -9,7 +9,7 @@ export async function POST(request) {
 
     const { name, email, password } = await request.json();
 
-    // ✅ Validate input (trim to remove unwanted spaces)
+    // Validate input (trim to remove unwanted spaces)
     if (!name.trim() || !email.trim() || !password.trim()) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -17,7 +17,7 @@ export async function POST(request) {
       );
     }
 
-    // ✅ Check if user already exists
+    // Check if user already exists
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
@@ -26,10 +26,10 @@ export async function POST(request) {
       );
     }
 
-    // ✅ Hash the password before saving
+    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ✅ Create new user
+    // Create new user
     const newUser = new UserModel({
       name: name.trim(),
       email: email.trim(),
@@ -41,7 +41,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         message: "User registered successfully",
-        user: { name: newUser.name, email: newUser.email }, // 🔹 Remove password
+        user: { name: newUser.name, email: newUser.email },
       },
       { status: 201 }
     );
