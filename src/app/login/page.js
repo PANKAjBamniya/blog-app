@@ -1,10 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "../store/authStore";
+import { useRouter } from "next/navigation";
+import Loader from "../components/Loader";
 
 const Login = () => {
-  const { login } = useAuthStore();
+  const router = useRouter();
+  const { login, user, loading } = useAuthStore();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,6 +22,15 @@ const Login = () => {
     await login(formData);
   };
 
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Link
@@ -65,7 +77,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-teal-600 text-white p-3 rounded-lg hover:bg-teal-500 transition"
+            className="w-full bg-teal-600 text-white p-3 rounded-lg hover:bg-teal-500 transition cursor-pointer"
           >
             Login
           </button>

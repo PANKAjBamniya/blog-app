@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "../store/authStore";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const { register, user } = useAuthStore();
+  const router = useRouter();
+  const { register, user, autoLogin } = useAuthStore();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,6 +23,14 @@ const RegisterForm = () => {
     e.preventDefault();
     await register(formData);
   };
+
+  useEffect(() => {
+    autoLogin();
+
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">

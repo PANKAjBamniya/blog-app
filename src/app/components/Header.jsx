@@ -9,7 +9,7 @@ import { useAuthStore } from "../store/authStore";
 
 const Header = () => {
   const { user } = useAuthStore();
-
+  const [isOpen, setIsOpen] = useState(false);
   const { logout } = useAuthStore();
 
   const handleLogout = async () => {
@@ -36,12 +36,20 @@ const Header = () => {
                 LogOut
               </button>
 
-              {/* Profile Icon */}
-              <div>
-                <span className="text-3xl cursor-pointer">
-                  <CgProfile />
-                </span>
-              </div>
+              <span
+                className="text-3xl cursor-pointer"
+                onClick={() => setIsOpen(!isOpen)} // ✅ Toggle box
+              >
+                <CgProfile />
+              </span>
+
+              {/* Dropdown Box */}
+              {isOpen && user && (
+                <div className="absolute right-4 mt-2 w-48 bg-white shadow-xl rounded-lg p-4 top-16">
+                  <p className="font-semibold">{user.name}</p>
+                  <p className="text-gray-600 text-sm">{user.email}</p>
+                </div>
+              )}
             </>
           ) : (
             <>
