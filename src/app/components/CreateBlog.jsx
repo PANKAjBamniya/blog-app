@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import useBlogStore from "../store/blogStore";
+import { useRouter } from "next/navigation";
 
 const CreateBlog = ({ setShowForm }) => {
   const { addBlog } = useBlogStore();
+  const router = useRouter();
   const [blogData, setBlogData] = useState({
     title: "",
     description: "",
@@ -20,6 +22,7 @@ const CreateBlog = ({ setShowForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addBlog(blogData);
+    router.push("/");
   };
 
   return (
