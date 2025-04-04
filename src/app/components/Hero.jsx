@@ -1,7 +1,10 @@
-import Link from "next/link";
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import CreateBlog from "./CreateBlog";
 
 const Hero = () => {
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <div className="max-w-2xl mx-auto text-center p-6 rounded-lg md:py-20">
       <h1 className="text-4xl font-bold text-gray-800 mb-3">
@@ -11,8 +14,13 @@ const Hero = () => {
         Get insights on web development, latest trends, and best coding
         practices. Subscribe now and never miss an update!
       </p>
-      <form className="flex flex-col sm:flex-row justify-center gap-3">
-        <button className="relative overflow-hidden border-2 bg-teal-700 border-teal-900 text-white px-6 py-2 rounded-lg transition-all duration-300 group">
+
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row justify-center gap-3">
+        <button
+          onClick={() => setShowForm(true)}
+          className="relative overflow-hidden border-2 bg-teal-700 border-teal-900 text-white px-6 py-2 rounded-lg transition-all duration-300 group"
+        >
           <span className="absolute inset-0 w-0 bg-teal-900 transition-all duration-300 group-hover:w-full right-0"></span>
           <span className="relative z-10 text-white group-hover:text-white">
             Create Blog
@@ -25,7 +33,10 @@ const Hero = () => {
             My Blog
           </span>
         </button>
-      </form>
+      </div>
+
+      {/* Modal Popup for Blog Creation */}
+      {showForm && <CreateBlog setShowForm={setShowForm} />}
     </div>
   );
 };

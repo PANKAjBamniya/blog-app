@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import useBlogStore from "../store/blogStore";
+import Loader from "./Loader";
 
 const BlogItem = () => {
   const { blogs, fetchBlogs, loading } = useBlogStore();
@@ -23,7 +24,7 @@ const BlogItem = () => {
         <>
           {blogs.map((blog) => (
             <div
-              key={blog.id}
+              key={blog._id}
               className="bg-white rounded-xl shadow-md overflow-hidden max-w-sm"
             >
               <img

@@ -13,6 +13,7 @@ const Header = () => {
   const { logout } = useAuthStore();
 
   const handleLogout = async () => {
+    
     await logout();
   };
 
